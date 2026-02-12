@@ -1,0 +1,42 @@
+import java.util.Scanner;
+class Node{
+    int data;
+    Node next;
+    Node(int data){
+        this.data=data;
+        this.next=null;
+    }
+}
+public class Main{
+    public static void main(String[] args){
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        Node head=null;
+        Node temp=null;
+        for(int i=0;i<n;i++){
+            int value=sc.nextInt();
+            Node newNode = new Node(value);
+            if(head==null){
+                head=newNode;
+                temp=head;
+            }else{
+                temp.next=newNode;
+                temp=newNode;
+            }
+        }
+     int pos=sc.nextInt();
+     int midData=sc.nextInt();
+     Node midNode=new Node(midData);
+     temp=head;
+     for(int i=1;i<pos-1;i++){
+         temp=temp.next;
+     }
+     midNode.next=temp.next;
+     temp.next=midNode;
+        temp=head;
+        while(temp!=null){
+            System.out.print(temp.data+" ");
+            temp=temp.next;
+        }
+    }
+}
