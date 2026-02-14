@@ -1,0 +1,62 @@
+import java.util.Scanner;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int val) {
+        data = val;
+        next = null;
+    }
+}
+
+class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        Node evenHead = null;
+        Node oddHead = null;
+        Node oddTail = null;
+
+        for (int i = 0; i < n; i++) {
+            int val = sc.nextInt();
+            Node newNode = new Node(val);
+
+            if (val % 2 == 0) {
+                
+                newNode.next = evenHead;
+                evenHead = newNode;
+            } else {
+                    if (oddHead == null) {
+                    oddHead = newNode;
+                    oddTail = newNode;
+                } else {
+                    oddTail.next = newNode;
+                    oddTail = newNode;
+                }
+            }
+        }
+
+                if (evenHead == null) {
+            printList(oddHead);
+        } else {
+            Node temp = evenHead;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = oddHead;
+            printList(evenHead);
+        }
+    }
+
+    static void printList(Node head) {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+    }
+}
