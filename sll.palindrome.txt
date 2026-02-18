@@ -1,0 +1,102 @@
+import java.util.Scanner;
+
+class Node {
+    Node prev;
+    int data;
+    Node next;
+
+    Node(int val) {
+        prev = null;
+        data = val;
+        next = null;
+    }
+}
+
+class Linkedlist {
+    Node head = null;
+
+    // Insert at end
+    void insertEnd(int val) {
+        Node newNode = new Node(val);
+
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+            newNode.prev = temp;
+        }
+    }
+
+    // Display forward
+     void displayForward() {
+          Node temp = head; 
+    while (temp != null) {
+        System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+    // Palindrome using slow-fast
+    void checkPalindrome() {
+        if (head == null || head.next == null) {
+            System.out.println("Palindrome");
+            return;
+        }
+
+        Node slow = head;
+        Node fast = head;
+
+        // Find middle using slow-fast
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        // Move to last node
+        Node right = head;
+        while (right.next != null) {
+            right = right.next;
+        }
+
+        Node left = head;
+        boolean isPalindrome = true;
+
+        // Compare till middle
+        while (left != slow && right != slow.prev) {
+            if (left.data != right.data) {
+                isPalindrome = false;
+                break;
+            }
+            left = left.next;
+            right = right.prev;
+        }
+
+        if (isPalindrome) {
+            System.out.println("Palindrome");
+        } else {
+            System.out.println("Not Palindrome");
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Linkedlist l = new Linkedlist();
+        Scanner s = new Scanner(System.in);
+
+        int n = s.nextInt();
+
+        for (int i = 0; i < n; i++) {
+            int val = s.nextInt();
+            l.insertEnd(val);
+        }
+
+        l.displayForward();
+        l.checkPalindrome();
+    }
+}
