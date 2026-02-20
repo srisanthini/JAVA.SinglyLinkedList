@@ -1,0 +1,82 @@
+import java.util.Scanner;
+
+// Node class
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+// Linked List class
+class SinglyLinkedList {
+
+    Node head;
+
+    // Insert at end
+    void insert(int data) {
+
+        Node newNode = new Node(data);
+
+        // if list is empty
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+
+        // traverse till last node
+        Node temp = head;
+
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+
+        // connect last node to new node
+        temp.next = newNode;
+    }
+
+    // Print last node
+    void printLastNode() {
+
+        // check empty list
+        if (head == null) {
+            System.out.println("List is empty");
+            return;
+        }
+
+        Node temp = head;
+
+        // move until last node
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+
+        System.out.println("Last node is: " + temp.data);
+    }
+}
+
+// Main class
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        SinglyLinkedList list = new SinglyLinkedList();
+
+        System.out.println("Enter number of nodes:");
+        int n = sc.nextInt();
+
+        System.out.println("Enter elements:");
+
+        for (int i = 0; i < n; i++) {
+            int value = sc.nextInt();
+            list.insert(value);
+        }
+
+        list.printLastNode();
+    }
+}
