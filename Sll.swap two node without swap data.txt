@@ -1,0 +1,94 @@
+import java.util.*;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int d) {
+        data = d;
+        next = null;
+    }
+}
+
+public class Main {
+
+    // Function to swap nodes (not data)
+    static Node swapNodes(Node head, int x, int y) {
+
+        // If x and y are same, no change
+        if (x == y)
+            return head;
+
+        Node prevX = null, currX = head;
+        Node prevY = null, currY = head;
+
+        // Find x
+        while (currX != null && currX.data != x) {
+            prevX = currX;
+            currX = currX.next;
+        }
+
+        // Find y
+        while (currY != null && currY.data != y) {
+            prevY = currY;
+            currY = currY.next;
+        }
+
+        // If either not found, return unchanged
+        if (currX == null || currY == null)
+            return head;
+
+        // If x is not head
+        if (prevX != null)
+            prevX.next = currY;
+        else
+            head = currY;
+
+        // If y is not head
+        if (prevY != null)
+            prevY.next = currX;
+        else
+            head = currX;
+
+        // Swap next pointers
+        Node temp = currX.next;
+        currX.next = currY.next;
+        currY.next = temp;
+
+        return head;
+    }
+
+    static void printList(Node head) {
+        Node curr = head;
+        while (curr != null) {
+            System.out.print(curr.data + " ");
+            curr = curr.next;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+        Node head = null, tail = null;
+
+        for (int i = 0; i < n; i++) {
+            int val = sc.nextInt();
+            Node newNode = new Node(val);
+            if (head == null) {
+                head = tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
+            }
+        }
+
+        int x = sc.nextInt();
+        int y = sc.nextInt();
+
+        head = swapNodes(head, x, y);
+
+        printList(head);
+    }
+}
