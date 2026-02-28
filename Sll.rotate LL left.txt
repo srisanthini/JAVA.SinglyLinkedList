@@ -1,0 +1,101 @@
+import java.util.Scanner;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class Main {
+
+    // Rotate left by K positions
+    static Node rotateLeft(Node head, int K) {
+
+        if (head == null || K == 0)
+            return head;
+
+        Node temp = head;
+        int count = 1;
+
+        // Find length of list
+        while (temp.next != null) {
+            temp = temp.next;
+            count++;
+        }
+
+        // Adjust K if greater than length
+        K = K % count;
+        if (K == 0)
+            return head;
+
+        // Make list circular
+        temp.next = head;
+
+        Node current = head;
+
+        // Move to Kth node
+        for (int i = 1; i < K; i++) {
+            current = current.next;
+        }
+
+        // New head
+        Node newHead = current.next;
+
+        // Break circular link
+        current.next = null;
+
+        return newHead;
+    }
+
+    // Print linked list
+    static void printList(Node head) {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int T = sc.nextInt();  // number of test cases
+
+        while (T-- > 0) {
+
+            int N = sc.nextInt();  // number of nodes
+            int K = sc.nextInt();  // rotation count
+
+            Node head = null;
+            Node tail = null;
+
+            // Create linked list
+            for (int i = 0; i < N; i++) {
+                int value = sc.nextInt();
+                Node newNode = new Node(value);
+
+                if (head == null) {
+                    head = newNode;
+                    tail = newNode;
+                } else {
+                    tail.next = newNode;
+                    tail = newNode;
+                }
+            }
+
+            // Rotate
+            head = rotateLeft(head, K);
+
+            // Print result
+            printList(head);
+        }
+
+        sc.close();
+    }
+}
