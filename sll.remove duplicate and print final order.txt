@@ -1,0 +1,101 @@
+import java.util.Scanner;
+
+class Node {
+    int data;           // stores value
+    Node prev;          // pointer to previous node
+    Node next;          // pointer to next node
+
+    Node(int data) {    // constructor
+        this.data = data;
+        this.prev = null;
+        this.next = null;
+    }
+}
+
+class DoublyLinkedList {
+    Node head;          // starting node
+
+    // Insert at front
+    void insertFront(int data) {
+        Node newNode = new Node(data);   // create new node
+
+        if (head == null) {              // if list empty
+            head = newNode;              // make new node head
+        } else {
+            newNode.next = head;         // connect newNode to old head
+            head.prev = newNode;         // old head prev points to newNode
+            head = newNode;              // move head to newNode
+        }
+    }
+
+    // Remove duplicates
+    void removeDuplicates() {
+        Node current = head;
+
+        while (current != null) {
+            Node temp = current.next;
+
+            while (temp != null) {
+                if (temp.data == current.data) {
+
+                    Node nextNode = temp.next;
+
+                    if (temp.prev != null)
+                        temp.prev.next = temp.next;
+
+                    if (temp.next != null)
+                        temp.next.prev = temp.prev;
+
+                    temp = nextNode;
+                } else {
+                    temp = temp.next;
+                }
+            }
+            current = current.next;
+        }
+    }
+
+    void display() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int n = sc.nextInt();
+
+        DoublyLinkedList list = new DoublyLinkedList();
+
+        for (int i = 0; i < n; i++) {
+            int value = sc.nextInt();
+            list.insertFront(value);
+        }
+
+        list.removeDuplicates();
+        list.display();
+    }
+} 
+
+
+
+
+input1;
+10
+12 12 10 4 8 4 6 4 4 8
+
+
+output;
+8 4 6 10 12
+
+input 2;
+4
+1 1 2 2
+
+output;
+2 1
