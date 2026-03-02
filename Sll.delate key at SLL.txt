@@ -1,0 +1,94 @@
+import java.util.Scanner;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int val) {
+        data = val;
+        next = null;
+    }
+}
+
+class Linkedlist {
+    Node head;
+
+    Linkedlist() {
+        head = null;
+    }
+
+    void insertatend(int val) {
+        Node newNode = new Node(val);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+        }
+    }
+
+    void deleteAll(int key) {
+        // Remove key from head
+        while (head != null && head.data == key) {
+            head = head.next;
+        }
+
+        Node current = head;
+
+        // Remove key from rest of list
+        while (current != null && current.next != null) {
+            if (current.next.data == key) {
+                current.next = current.next.next;
+            } else {
+                current = current.next;
+            }
+        }
+    }
+
+    void display() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Linkedlist ll = new Linkedlist();
+        int val;
+
+        // Read linked list until -1
+        do {
+            val = sc.nextInt();
+            if (val != -1)
+                ll.insertatend(val);
+        } while (val != -1);
+
+        // Read key to delete
+        int key = sc.nextInt();
+
+        // Delete all occurrences of key
+        ll.deleteAll(key);
+
+        // Print updated list
+        ll.display();
+    }
+}
+
+
+
+input 1;
+1 2 3 2 4 2 5 -1
+2
+
+
+output;
+1 3 4 5
+
+

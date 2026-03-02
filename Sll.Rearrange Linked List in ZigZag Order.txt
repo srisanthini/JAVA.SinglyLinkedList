@@ -1,0 +1,79 @@
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class Main {
+
+    public static void zigZag(Node head) {
+
+        if (head == null) return;
+
+        boolean flag = true; // true means < expected
+
+        Node current = head;
+
+        while (current.next != null) {
+
+            if (flag) { 
+                // Expect current < next
+                if (current.data > current.next.data) {
+                    int temp = current.data;
+                    current.data = current.next.data;
+                    current.next.data = temp;
+                }
+            } else {
+                // Expect current > next
+                if (current.data < current.next.data) {
+                    int temp = current.data;
+                    current.data = current.next.data;
+                    current.next.data = temp;
+                }
+            }
+
+            current = current.next;
+            flag = !flag;  // flip condition
+        }
+    }
+
+    public static void printList(Node head) {
+        while (head != null) {
+            System.out.print(head.data + " ");
+            head = head.next;
+        }
+    }
+
+    public static void main(String[] args) {
+
+        Node head = new Node(4);
+        head.next = new Node(3);
+        head.next.next = new Node(7);
+        head.next.next.next = new Node(8);
+        head.next.next.next.next = new Node(6);
+        head.next.next.next.next.next = new Node(2);
+        head.next.next.next.next.next.next = new Node(1);
+
+        zigZag(head);
+
+        printList(head);
+    }
+} 
+
+
+
+
+Input:
+
+1 → 4 → 3 → 2 → 5
+
+
+
+
+Output:
+
+1 → 4 → 2 → 5 → 3
