@@ -1,0 +1,113 @@
+import java.util.Scanner;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+    Node head;
+
+    void insertAtBeginning(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+    }
+
+    void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+        }
+    }
+
+    void insertAtPosition(int data, int pos) {
+
+        if (pos == 1) {
+            insertAtBeginning(data);
+            return;
+        }
+
+        Node newNode = new Node(data);
+        Node temp = head;
+
+        for (int i = 1; i < pos - 1 && temp != null; i++) {
+            temp = temp.next;
+        }
+
+        if (temp == null) {
+            System.out.println("Invalid Position");
+            return;
+        }
+
+        newNode.next = temp.next;
+        temp.next = newNode;
+    }
+
+    void display() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        LinkedList list = new LinkedList();
+
+        // Initial list creation
+        int n = sc.nextInt();  // number of elements
+
+        for (int i = 0; i < n; i++) {
+            list.insertAtEnd(sc.nextInt());
+        }
+
+        // Insert at beginning
+        int beginValue = sc.nextInt();
+        list.insertAtBeginning(beginValue);
+
+        // Insert at position
+        int midValue = sc.nextInt();
+        int position = sc.nextInt();
+        list.insertAtPosition(midValue, position);
+
+        // Insert at end
+        int endValue = sc.nextInt();
+        list.insertAtEnd(endValue);
+
+        list.display();
+    }
+}
+
+
+
+
+
+
+Input1;
+3
+10 20 30
+5
+25 3
+40
+
+
+
+Output;
+5 10 25 20 30 40
