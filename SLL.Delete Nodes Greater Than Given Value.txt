@@ -1,0 +1,105 @@
+import java.util.Scanner;
+
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class LinkedList {
+
+    Node head;
+
+    // Insert at end
+    void insert(int data) {
+
+        Node newNode = new Node(data);
+
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+
+        Node temp = head;
+
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+
+        temp.next = newNode;
+    }
+
+    // Delete nodes greater than given value
+    void deleteGreater(int value) {
+
+        // Remove nodes from beginning if needed
+        while (head != null && head.data > value) {
+            head = head.next;
+        }
+
+        Node temp = head;
+
+        while (temp != null && temp.next != null) {
+
+            if (temp.next.data > value) {
+                temp.next = temp.next.next;
+            } else {
+                temp = temp.next;
+            }
+        }
+    }
+
+    // Display list
+    void display() {
+
+        Node temp = head;
+
+        while (temp != null) {
+            System.out.print(temp.data + " ");
+            temp = temp.next;
+        }
+    }
+}
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        LinkedList list = new LinkedList();
+
+        int n = sc.nextInt();
+
+        for (int i = 0; i < n; i++) {
+            list.insert(sc.nextInt());
+        }
+
+        int value = sc.nextInt();
+
+        list.deleteGreater(value);
+
+        list.display();
+    }
+}
+
+
+Sample Input
+5
+10 20 30 40 50
+25
+
+Meaning
+
+Number of nodes = 5
+
+Linked List = 10 → 20 → 30 → 40 → 50
+
+Given value = 25
+
+Output
+10 20
