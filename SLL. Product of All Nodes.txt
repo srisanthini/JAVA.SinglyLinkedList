@@ -1,0 +1,80 @@
+import java.util.Scanner;
+
+// Node class
+class Node {
+    int data;
+    Node next;
+
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+// Linked List class
+class LinkedList {
+
+    Node head;
+
+    // Insert node at end
+    void insert(int data) {
+        Node newNode = new Node(data);
+
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+
+        Node temp = head;
+
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+
+        temp.next = newNode;
+    }
+
+    // Find product of all nodes
+    void findProduct() {
+
+        int product = 1;
+        Node temp = head;
+
+        while (temp != null) {
+            product = product * temp.data;
+            temp = temp.next;
+        }
+
+        System.out.println("Product = " + product);
+    }
+}
+
+// Main class
+public class Main {
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        LinkedList list = new LinkedList();
+
+        // Read number of nodes
+        int n = sc.nextInt();
+
+        // Read elements
+        for (int i = 0; i < n; i++) {
+            list.insert(sc.nextInt());
+        }
+
+        // Call function
+        list.findProduct();
+    }
+}
+
+
+
+Sample Input
+4
+2 3 4 5
+Output
+Product = 120
